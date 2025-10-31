@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>French Family Flashcards</title>
+<style>
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(120deg, #f0f3ff, #fffaf0);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+
+  .flag {
+    width: 75px;
+    height: 50px;
+    border: 1px solid #aaa;
+    display: flex;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .flag div { flex: 1; }
+  .blue { background: #0055A4; }
+  .white { background: #FFFFFF; }
+  .red { background: #EF4135; }
+
+  #title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  #card {
+    font-size: 2.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 360px;
+    height: 220px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 6px 24px rgba(20,30,60,.1);
+    margin-bottom: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    padding: 10px;
+  }
+
+  #card.english {
+    background: #f7f7f7;
+    color: #333;
+  }
+
+  .controls {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  #soundBtn {
+    background: #2b9cff;
+    color: white;
+  }
+
+  #nextBtn {
+    background: #f0f0f0;
+    color: #333;
+  }
+
+  footer {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  @media(max-width:480px){
+    #card { font-size: 1.8rem; width: 260px; height: 180px; }
+    header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <header>
+    <div class="flag">
+      <div class="blue"></div>
+      <div class="white"></div>
+      <div class="red"></div>
+    </div>
+    <div id="title">French Family Flashcards</div>
+  </header>
+
+  <div id="card" aria-live="polite">la famille</div>
+
+  <div class="controls">
+    <button id="soundBtn">🔊 Hear Sound</button>
+    <button id="nextBtn">➡️ Next Word</button>
+  </div>
+
+  <footer>🇫🇷 Tap the card to see the English translation 🇫🇷</footer>
+</main>
+
+<script>
+  const familyWords = [
+    { french: 'l’oncle', english: 'uncle', file: 'l-oncle.mp3' },
+    { french: 'la belle-fille', english: 'daughter-in-law', file: 'la-belle-fille.mp3' },
+    { french: 'la belle-mère', english: 'mother-in-law', file: 'la-belle-mere.mp3' },
+    { french: 'la cousine', english: 'female cousin', file: 'la-cousine.mp3' },
+    { french: 'la demi-sœur', english: 'half-sister', file: 'la-demi-soeur.mp3' },
+    { french: 'la famille', english: 'family', file: 'la-famille.mp3' },
+    { french: 'la femme', english: 'wife', file: 'la-femme.mp3' },
+    { french: 'la fille', english: 'daughter', file: 'la-fille.mp3' },
+    { french: 'la grand-mère', english: 'grandmother', file: 'la-grand-mere.mp3' },
+    { french: 'la mère', english: 'mother', file: 'la-mere.mp3' },
+    { french: 'la nièce', english: 'niece', file: 'la-niece.mp3' },
+    { french: 'la petite-fille', english: 'granddaughter', file: 'la-petite-fille.mp3' },
+    { french: 'la sœur', english: 'sister', file: 'la-soeur.mp3' },
+    { french: 'la tante', english: 'aunt', file: 'la-tante.mp3' },
+    { french: 'le beau-fils', english: 'son-in-law', file: 'le-beau-fils.mp3' },
+    { french: 'le beau-père', english: 'father-in-law', file: 'le-beau-pere.mp3' },
+    { french: 'le cousin', english: 'male cousin', file: 'le-cousin.mp3' },
+    { french: 'le demi-frère', english: 'half-brother', file: 'le-demi-frere.mp3' },
+    { french: 'le fils', english: 'son', file: 'le-fils.mp3' },
+    { french: 'le frère', english: 'brother', file: 'le-frere.mp3' },
+    { french: 'le grand-père', english: 'grandfather', file: 'le-grand-pere.mp3' },
+    { french: 'le mari', english: 'husband', file: 'le-mari.mp3' },
+    { french: 'le neveu', english: 'nephew', file: 'le-neveu.mp3' },
+    { french: 'le père', english: 'father', file: 'le-pere.mp3' },
+    { french: 'le petit-fils', english: 'grandson', file: 'le-petit-fils.mp3' },
+    { french: 'les beaux-parents', english: 'parents-in-law', file: 'les-beaux-parents.mp3' },
+    { french: 'les grands-parents', english: 'grandparents', file: 'les-grand-parents.mp3' },
+    { french: 'les petits-enfants', english: 'grandchildren', file: 'les-petits-enfants.mp3' }
+  ];
+
+  const card = document.getElementById('card');
+  const soundBtn = document.getElementById('soundBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let currentIndex = 0;
+  let currentAudio = null;
+  let showingEnglish = false;
+
+  function showCard(i) {
+    currentIndex = (i + familyWords.length) % familyWords.length;
+    showingEnglish = false;
+    card.textContent = familyWords[currentIndex].french;
+    card.classList.remove('english');
+  }
+
+  function playSound() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+    const src = 'audio/' + familyWords[currentIndex].file;
+    currentAudio = new Audio(src);
+    currentAudio.play().catch(err => console.warn('Audio play failed:', err));
+  }
+
+  soundBtn.addEventListener('click', playSound);
+
+  nextBtn.addEventListener('click', () => {
+    let i;
+    do { i = Math.floor(Math.random() * familyWords.length); } while (i === currentIndex && familyWords.length > 1);
+    showCard(i);
+  });
+
+  card.addEventListener('click', () => {
+    if (showingEnglish) {
+      card.textContent = familyWords[currentIndex].french;
+      card.classList.remove('english');
+    } else {
+      card.textContent = familyWords[currentIndex].english;
+      card.classList.add('english');
+    }
+    showingEnglish = !showingEnglish;
+  });
+
+  showCard(0);
+</script>
+
+</body>
+</html>
