@@ -122,7 +122,7 @@
     <div id="title">Apprendre le Vocabulaire de la Famille</div>
   </header>
 
-  <div id="card" aria-live="polite">la famille</div>
+  <div id="card" aria-live="polite">family</div>
 
   <div class="controls">
     <button id="soundBtn">🔊 Hear Sound</button>
@@ -170,13 +170,13 @@
 
   let currentIndex = 0;
   let currentAudio = null;
-  let showingEnglish = false;
+  let showingEnglish = true;
 
   function showCard(i) {
     currentIndex = (i + familyWords.length) % familyWords.length;
-    showingEnglish = false;
-    card.textContent = familyWords[currentIndex].french;
-    card.classList.remove('english');
+    showingEnglish = true;
+    card.textContent = familyWords[currentIndex].english;
+    card.classList.add('english');
   }
 
   function playSound() {
